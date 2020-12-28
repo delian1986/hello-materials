@@ -1,0 +1,24 @@
+image: node:10.16.3
+
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  PUBLIC_URL: /setupreactprojec
+
+before_script:
+  - CI=false npm install
+
+pages:
+  stage: deploy
+  script:
+    - npm install
+    - npm run build
+    - cp dist/bundle.js public
+    - cp dist/index.html public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
